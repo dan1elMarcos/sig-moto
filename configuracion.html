@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sig-moto - Configuración</title>
+  <link rel="stylesheet" href="css/general.css">
+</head>
+<body>
+
+  <!-- Navbar Rojo Oscuro -->
+  <header class="navbar">
+    <h1>SIG-MOTO San Mateo</h1>
+    <div>
+      <span id="user-display" style="margin-right: 15px; color: #cbd5e1;"></span>
+      <button id="btn-logout" class="logout-btn">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <div class="main-wrapper">
+    <!-- Menú Lateral Morado Oscuro -->
+    <aside class="sidebar">
+      <ul>
+        <li><a href="principal.html">🏍️ Registrar Mototaxi</a></li>
+        <li><a href="reporte.html">📊 Reportes y Estadísticas</a></li>
+        <li><a href="configuracion.html" class="active">⚙️ Configuración</a></li>
+      </ul>
+    </aside>
+
+    <!-- Área de Contenido Oscuro Azul -->
+    <main class="content">
+      <h2>Ajustes del Sistema</h2>
+
+      <div class="form-container">
+        <h3>Parámetros de las Matrículas</h3>
+        <p style="color: #94a3b8; margin-bottom: 15px;">
+          Configuración actual basada en el <strong>Acuerdo Gubernativo Número 111-95 (Artículo 3)</strong>.
+        </p>
+        <div class="form-group" style="max-width: 300px;">
+          <label>Serie Asignada por Defecto</label>
+          <input type="text" value="Letra M (Motocicletas / Mototaxis)" disabled style="opacity: 0.7;">
+        </div>
+      </div>
+
+      <div class="form-container">
+        <h3>Información del Operador</h3>
+        <div class="form-group" style="max-width: 400px; margin-bottom: 15px;">
+          <label>Identificador de Sesión</label>
+          <input type="text" id="config-email" disabled style="opacity: 0.7;">
+        </div>
+        <p style="color: #94a3b8; font-size: 14px;">Para cambiar tu contraseña o gestionar accesos, comunícate con el administrador de IT de la Municipalidad de San Mateo.</p>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { auth, signOut, onAuthStateChanged } from "./js/config.js";
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("user-display").textContent = `Operador: ${user.email}`;
+        document.getElementById("config-email").value = user.email;
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+
+    document.getElementById("btn-logout").addEventListener("click", () => {
+      signOut(auth).then(() => window.location.href = "index.html");
+    });
+  </script>
+</body>
+</html>

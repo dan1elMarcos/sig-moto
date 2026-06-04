@@ -1,0 +1,111 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  background-color: #1e1e1e;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #2e7d32; /* Borde verde oscuro */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #81c784; /* Verde claro */
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #a5d6a7;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #2a2a2a;
+  color: #fff;
+  font-size: 16px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #388e3c;
+}
+
+.error-msg {
+  color: #ef5350;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.error-msg {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Estilos para los enlaces de registro/login como botones */
+#toggle-register-login,
+#toggle-login-register {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #2e7d32;
+  color: white;
+  border: 2px solid #4caf50;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+#toggle-register-login:hover,
+#toggle-login-register:hover {
+  background-color: #388e3c;
+  border-color: #81c784;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}

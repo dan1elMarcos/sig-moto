@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sig-moto - Reportes y Estadísticas</title>
+  <link rel="stylesheet" href="css/general.css">
+  <style>
+    /* Estilos rápidos adicionales específicos para los bloques de reporte */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .card-stat {
+      background-color: #1e293b;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      text-align: center;
+    }
+    .card-stat h4 { color: #94a3b8; margin-bottom: 10px; }
+    .card-stat .number { font-size: 32px; font-weight: bold; color: #38bdf8; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar Rojo Oscuro -->
+  <header class="navbar">
+    <h1>SIG-MOTO San Mateo</h1>
+    <div>
+      <span id="user-display" style="margin-right: 15px; color: #cbd5e1;"></span>
+      <button id="btn-logout" class="logout-btn">Cerrar Sesión</button>
+    </div>
+  </header>
+
+  <div class="main-wrapper">
+    <!-- Menú Lateral Morado Oscuro -->
+    <aside class="sidebar">
+      <ul>
+        <li><a href="principal.html">🏍️ Registrar Mototaxi</a></li>
+        <li><a href="reporte.html" class="active">📊 Reportes y Estadísticas</a></li>
+        <li><a href="configuracion.html">⚙️ Configuración</a></li>
+      </ul>
+    </aside>
+
+    <!-- Área de Contenido Oscuro Azul -->
+    <main class="content">
+      <h2>Panel de Monitoreo y Reportes</h2>
+
+      <!-- Tarjetas de Estadísticas -->
+      <div class="dashboard-grid">
+        <div class="card-stat">
+          <h4>Total Mototaxis</h4>
+          <div class="number" id="stat-total">...</div>
+        </div>
+        <div class="card-stat">
+          <h4>Con Seguro Activo</h4>
+          <div class="number" id="stat-seguro" style="color: #4caf50;">...</div>
+        </div>
+        <div class="card-stat">
+          <h4>Sin Seguro</h4>
+          <div class="number" id="stat-no-seguro" style="color: #ef5350;">...</div>
+        </div>
+      </div>
+
+      <!-- Sección de Filtros rápidos o gráficas futuras -->
+      <div class="form-container">
+        <h3>Filtrar por Municipio</h3>
+        <p style="color: #94a3b8;">Próximamente: Filtros avanzados de consulta de unidades por sector del departamento de San Mateo.</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- Reutilizamos la lógica de Firebase para proteger la ruta y cerrar sesión -->
+  <script type="module">
+    import { auth, db, signOut, onAuthStateChanged, collection, getDocs } from "./js/config.js";
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        document.getElementById("user-display").textContent = `Operador: ${user.email}`;
+        
+        // Lógica para calcular las estadísticas en tiempo real desde Firestore
+        const querySnapshot = await getDocs(collection(db, "mototaxis"));
+        let total = 0;
+        let conSeguro = 0;
+        let sinSeguro = 0;
+
+        querySnapshot.forEach((doc) => {
+          total++;
+          const data = doc.data();
+          if (data.vehiculo && data.vehiculo.seguro === "Sí") {
+            conSeguro++;
+          } else {
+            sinSeguro++;
+          }
+        });
+
+        document.getElementById("stat-total").textContent = total;
+        document.getElementById("stat-seguro").textContent = conSeguro;
+        document.getElementById("stat-no-seguro").textContent = sinSeguro;
+
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+
+    document.getElementById("btn-logout").addEventListener("click", () => {
+      signOut(auth).then(() => window.location.href = "index.html");
+    });
+  </script>
+</body>
+</html>
