@@ -34,6 +34,26 @@ function setLoading(isLoading) {
   }
 }
 
+
+
+// LÓGICA PARA ALTERNAR MOSTRAR/OCULTAR CONTRASEÑA
+// ==========================================
+document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    // Buscamos el input correspondiente usando el atributo 'data-target'
+    const targetId = this.getAttribute('data-target');
+    const input = document.getElementById(targetId);
+    
+    if (input.type === 'password') {
+      input.type = 'text';
+      this.textContent = 'Ocultar';
+    } else {
+      input.type = 'password';
+      this.textContent = 'Mostrar';
+    }
+  });
+});
+
 // Alternar entre modo de registro y login
 toggleRegisterLoginLink.addEventListener("click", (e) => {
   e.preventDefault();

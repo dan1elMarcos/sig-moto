@@ -109,3 +109,31 @@ button:hover {
   border-color: #81c784;
   box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
 }
+
+
+
+
+/* NUEVOS ESTILOS PARA EL BOTÓN DE MOSTRAR CONTRASEÑA */
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  padding-right: 75px; /* Evita que el texto de la contraseña se encime con el botón */
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 12px;
+  color: #81c784; /* Verde claro a juego con tus títulos */
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.toggle-password-btn:hover {
+  color: #4caf50; /* Cambia a verde más brillante al pasar el cursor */
+}
