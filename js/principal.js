@@ -85,7 +85,7 @@ function cargarMototaxisRealtime() {
 
     // Iteramos los hijos del nodo 'mototaxis'
     snapshot.forEach((childSnapshot) => {
-      const data = childSnapshot.value(); // Obtenemos el objeto del mototaxi
+      const data = childSnapshot.val(); // Obtenemos el objeto del mototaxi
       const tr = document.createElement("tr");
 
       tr.innerHTML = `
